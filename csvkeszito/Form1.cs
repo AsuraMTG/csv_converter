@@ -28,7 +28,7 @@ namespace csvkeszito
         }
         public EtteremAdatok etteremFeltoltese = new EtteremAdatok();
         public List<EtteremAdatok> etterem = new List<EtteremAdatok>();
-        public  string[] Beolvaso(string fileName)
+        public string[] Beolvaso(string fileName)
         {
             string[] a = new string[170];
 
@@ -51,7 +51,7 @@ namespace csvkeszito
                 if (resz[0] != "")
                 {
                     kategoria = resz[0];
-                    if (kategoria[kategoria.Length -1] == ' ')
+                    if (kategoria[kategoria.Length - 1] == ' ')
                     {
                         seged = kategoria;
                         kategoria = "";
@@ -91,6 +91,24 @@ namespace csvkeszito
 
             return a;
         }
+
+        /*
+            try
+            {
+                if (feltel)
+                {
+                    throw new Exception("üzenet");
+                }
+            }
+            catch (Exception e)
+            {
+                label1.Text = e.Message;
+                throw;
+            }
+            
+
+            .Replace("; ","");
+         */
 
         private void Form1_Load(object sender, EventArgs e)
         {
