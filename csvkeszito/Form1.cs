@@ -17,7 +17,6 @@ namespace csvkeszito
         {
             InitializeComponent();
         }
-
         public class EtteremAdatok
         {
             public string kategoria;
@@ -28,6 +27,9 @@ namespace csvkeszito
         }
         public EtteremAdatok etteremFeltoltese = new EtteremAdatok();
         public List<EtteremAdatok> etterem = new List<EtteremAdatok>();
+        public string seged;
+        public string seged2;
+        public int intseged;
         public string[] Beolvaso(string fileName)
         {
             string[] a = new string[170];
@@ -39,12 +41,10 @@ namespace csvkeszito
             string[] resz;
             string kategoria = "";
             //int numericValue;
-            string seged;
-            string seged2;
+            
             while (!olvas.EndOfStream)
             {
                 elso = olvas.ReadLine();
-
                 resz = elso.Split('\t');
                 EtteremAdatok etteremFeltoltese = new EtteremAdatok();
                 //!int.TryParse(resz[0], out numericValue)
@@ -62,7 +62,7 @@ namespace csvkeszito
                     }
                 }
                 etteremFeltoltese.kategoria = kategoria;
-                for (int i = 2; i < 5; i++)
+                for (int i = 2; i <= 5; i++)
                 {
                     seged = resz[i];
                     if (seged[0] == ' ')
@@ -82,13 +82,39 @@ namespace csvkeszito
                     if (i == 4)
                         etteremFeltoltese.szenhidrat = Convert.ToInt32(seged);
                     if (i == 5)
+                    {
+                        if (seged == " " || seged == "\t")
+                        {
+                            seged = resz[i + 1];
+                            seged2 = seged;
+                            seged = "";
+                            for (int j = 0; j < seged2.Length; j++)
+                            {
+                                if (seged2[j] != Convert.ToChar(' '))
+                                {
+                                    seged += seged2[j];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            seged2 = seged;
+                            seged = "";
+                            for (int j = 0; j < seged2.Length; j++)
+                            {
+                                if (seged2[j] != Convert.ToChar(' '))
+                                {
+                                    seged += seged2[j];
+                                }
+                            }
+                        }
                         etteremFeltoltese.ar = Convert.ToInt32(seged);
+                    }
                 }
                 //label1.Text += $"\n";
                 etterem.Add(etteremFeltoltese);
             }
             folyam.Close();
-
             return a;
         }
 
@@ -113,11 +139,14 @@ namespace csvkeszito
         private void Form1_Load(object sender, EventArgs e)
         {
             label1.Text = "";
+            label2.Text = "";
             Beolvaso("étterem.txt");
             for (int i = 0; i < etterem.Count; i++)
             {
                 label1.Text += $"{etterem[i].kategoria};{etterem[i].megnevezes};{etterem[i].kcal};{etterem[i].szenhidrat};{etterem[i].ar}\n";
+                intseged += etterem[i].ar;
             }
+            label2.Text = $"{intseged / etterem.Count}";
         }
     }
 }
