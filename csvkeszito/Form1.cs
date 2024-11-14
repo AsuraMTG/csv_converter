@@ -189,23 +189,25 @@ namespace csvkeszito
             else
                 label4.Text = "HIBAS BEMENET";
         }
-        */
-        /*
-            try
+
+        --------------------------------------------
+
+        try
+        {
+            if (feltel)
             {
-                if (feltel)
-                {
-                    throw new Exception("üzenet");
-                }
+                throw new Exception("üzenet");
             }
-            catch (Exception e)
-            {
-                label1.Text = e.Message;
-                throw;
-            }
+        }
+        catch (Exception e)
+        {
+            label1.Text = e.Message;
+            throw;
+        }
             
 
-            .Replace("; ","");
+        .Replace("; ","");
+
          */
 
         private void Form1_Load(object sender, EventArgs e)
